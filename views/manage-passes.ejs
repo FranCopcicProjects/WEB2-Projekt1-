@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Digitalne propusnice</title>
+        <link rel="stylesheet" href="/style.css">
+    </head>
+
+    <body>
+        <div class="manage-div">
+
+            <h1>Upravljanje propusnicama</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ime i prezime</th>
+                        <th>Dokument</th>
+                        <th>Vrijeme izdavanja</th>
+                        <th>Status</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% passes.forEach(pass => { %>
+                        <tr>
+                            <td><%= pass.name %></td>
+                            <td><%= pass.document %></td>
+                            <td><%= pass.issuedAt %></td>
+                            <td><%= pass.status %></td>
+
+                            <td>
+                                <% if (pass.status === "ACTIVE") { %>
+                                    <button>Poništi</button>
+                                <% } %>
+
+                                <button>Obriši</button>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+
+            <a href="/">Povratak na početnu</a>
+
+        </div>
+    </body>
+</html>

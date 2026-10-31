@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Digitalne propusnice</title>
+        <title>Upravljanje propusnicama</title>
         <link rel="stylesheet" href="/style.css">
     </head>
 
@@ -26,9 +26,13 @@
                 <tbody>
                     <% passes.forEach(pass => { %>
                         <tr>
-                            <td><%= pass.name %></td>
+                            <td>
+                                <a href="/pass/<%= pass.id %>">
+                                    <%= pass.name %>
+                                </a>
+                            </td>
                             <td><%= pass.document %></td>
-                            <td><%= pass.issuedAt %></td>
+                            <td><%= new Date(pass.issued_at).toLocaleString("hr-HR") %></td>
                             <td><%= pass.status %></td>
 
                             <td>

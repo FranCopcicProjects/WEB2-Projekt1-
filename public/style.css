@@ -72,3 +72,37 @@ th, td {
 th {
     background-color: #093C5D;
 }
+
+.info-div {
+    width: 60%;
+    max-width: 700px;
+    padding: 40px;
+
+    background-color: #3B7597;
+
+    border: 2px solid #5DF8D8;
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.info-div p {
+    font-size: 18px;
+    margin: 12px 0;
+}
+
+.active {
+    color: #5DF8D8;
+    font-weight: bold;
+}
+
+.cancelled {
+    color: #FF6B6B;
+    font-weight: bold;
+}

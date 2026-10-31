@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Informacije o propusnici</title>
+        <link rel="stylesheet" href="/style.css">
+    </head>
+
+    <body>
+        <div class="info-div">
+
+            <h1>Informacije o propusnici</h1>
+
+            <p>Ime i prezime: <%= pass.name %></p>
+
+            <p>Dokument: <%= pass.document %></p>
+
+            <p>Vrijeme izdavanja: <%= new Date(pass.issued_at).toLocaleString("hr-HR") %></p>
+
+            <p>
+                Status:
+                <span class="<%= pass.status === 'ACTIVE' ? 'active' : 'cancelled' %>">
+                    <%= pass.status %>
+                </span>
+            </p>
+
+            <a href="/">Povratak na početnu</a>
+
+        </div>
+    </body>
+</html>

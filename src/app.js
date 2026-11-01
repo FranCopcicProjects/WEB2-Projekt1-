@@ -183,6 +183,54 @@ app.post("/passes", checkJwt, requiredScopes("create:passes"), async (req, res) 
     }
 });
 
+app.post("/passes/:id/cancel", requiresAuth(), async (req, res) => {
+    try {
+        const result = await pool.query(
+            `UPDATE passes
+             SET status = 'CANCELLED'
+             WHERE id = $1 AND status = 'ACTIVE'`,
+            [req.params.id]
+        );
+
+        if (result.rowCount === 0) {
+            return res.status(404).send("Aktivna propusnica nije pronađena.");
+        }
+
+        res.redirect("/manage");
+
+    } catch (error) {
+        if (error.code === "22P02") {
+            return res.status(404).send("Propusnica nije pronađena.");
+        }
+
+        console.error(error);
+        res.status(500).send("Pogreška pri poništavanju propusnice.");
+    }
+});
+
+app.post("/passes/:id/delete", requiresAuth(), async (req, res) => {
+    try {
+        const result = await pool.query(
+            "DELETE FROM passes WHERE id = $1",
+            [req.params.id]
+        );
+
+        if (result.rowCount === 0) {
+            return res.status(404).send("Propusnica nije pronađena.");
+        }
+
+        res.redirect("/manage");
+
+    } catch (error) {
+        if (error.code === "22P02") {
+            return res.status(404).send("Propusnica nije pronađena.");
+        }
+
+        console.error(error);
+        res.status(500).send("Pogreška pri brisanju propusnice.");
+    }
+});
+
 app.listen(port, () =>{
     console.log(`Server is running on: http://localhost:${port}`);
 });

@@ -33,14 +33,23 @@
                             </td>
                             <td><%= pass.document %></td>
                             <td><%= new Date(pass.issued_at).toLocaleString("hr-HR") %></td>
-                            <td><%= pass.status %></td>
+                            <% if (pass.status === "CANCELLED") { %>
+                                <td class="cancelled"><%= pass.status %></td>
+                            <% } else { %>
+                                <td><%= pass.status %></td>
+                            <% } %>
+                             
 
                             <td>
                                 <% if (pass.status === "ACTIVE") { %>
-                                    <button>Poništi</button>
+                                    <form action="/passes/<%= pass.id %>/cancel" method="POST">
+                                        <button type="submit">Poništi</button>
+                                    </form>
                                 <% } %>
 
-                                <button>Obriši</button>
+                                <form action="/passes/<%= pass.id %>/delete" method="POST">
+                                    <button type="submit">Obriši</button>
+                                </form>
                             </td>
                         </tr>
                     <% }); %>

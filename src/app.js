@@ -3,6 +3,7 @@ const path = require("path");
 require("dotenv").config();
 
 const app = express();
+app.set("trust proxy", 1);
 app.use(express.json());
 const port = process.env.PORT || 3000;
 const pool = require("./db/database");
@@ -165,9 +166,9 @@ app.post("/passes", checkJwt, requiredScopes("create:passes"), async (req, res) 
 
         const id = result.rows[0].id;
 
-        const publicUrl = `${req.protocol}://${req.get("host")}/pass/${id}`;
-
-        const apiUrl = `${req.protocol}://${req.get("host")}/passes/${id}`;
+        const publicUrl = `${process.env.BASE_URL}/pass/${id}`;
+        
+        const apiUrl = `${process.env.BASE_URL}/passes/${id}`;
 
         const qrCode = await qrcode.toBuffer(publicUrl, {
             type: "png"

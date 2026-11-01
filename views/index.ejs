@@ -14,8 +14,22 @@
             <p>Ukupan broj propusnica: <%= totalPasses %></p>
             <p>Broj aktivnih propusnica: <%= activePasses %></p>
 
-            <button>Prijava</button>
-            <a href="/manage">Upravljanje propusnicama</a>
+            <% if (isAuthenticated) { %>
+
+                <p>Dobrodošao, <%= username %>!</p>
+
+                <a href="/manage">Upravljanje propusnicama</a>
+
+                <form action="/logout" method="POST">
+                    <button type="submit">Odjava</button>
+                </form>
+
+            <% } else { %>
+
+                <a href="/login">Prijava</a>
+
+            <% } %>
+            
         </div>
     </body>
 </html>

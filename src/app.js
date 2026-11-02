@@ -78,7 +78,17 @@ app.get("/manage", requiresAuth(), async (req, res) => {
             "SELECT * FROM passes ORDER BY issued_at DESC"
         );
 
-        const passes = result.rows;
+        const passes = await Promise.all(
+            result.rows.map(async (pass) => {
+                const publicUrl = `${process.env.BASE_URL}/pass/${pass.id}`;
+                const qrCode = await qrcode.toDataURL(publicUrl);
+
+                return {
+                    ...pass,
+                    qrCode
+                };
+            })
+        );
 
         res.render("manage-passes.ejs", { passes });
 

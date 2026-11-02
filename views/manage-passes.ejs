@@ -19,6 +19,7 @@
                         <th>Dokument</th>
                         <th>Vrijeme izdavanja</th>
                         <th>Status</th>
+                        <th>QR kod</th>
                         <th>Akcije</th>
                     </tr>
                 </thead>
@@ -27,9 +28,7 @@
                     <% passes.forEach(pass => { %>
                         <tr>
                             <td>
-                                <a href="/pass/<%= pass.id %>">
-                                    <%= pass.name %>
-                                </a>
+                                <%= pass.name %>
                             </td>
                             <td><%= pass.document %></td>
                             <td><%= new Date(pass.issued_at).toLocaleString("hr-HR") %></td>
@@ -39,6 +38,9 @@
                                 <td><%= pass.status %></td>
                             <% } %>
                              
+                            <td>
+                                <img src="<%= pass.qrCode %>" alt="QR kod propusnice" class="qr-code">
+                            </td>
 
                             <td>
                                 <% if (pass.status === "ACTIVE") { %>
